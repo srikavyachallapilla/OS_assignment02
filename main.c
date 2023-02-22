@@ -30,7 +30,7 @@ void *producer(void *arg) {
         in = (in + 1) % BUFFER_SIZE;
         count++;
       
-        //signal that buffer is empty
+        //signal that buffer is full
         pthread_cond_signal(&full);
         
         //release lock on buffer
