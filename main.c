@@ -19,12 +19,14 @@ void *producer(void *arg) {
     int i, value;
     for (i = 1; i <= 40; i++) {
         value = i;
+        //entry section
         pthread_mutex_lock(&mutex); //acquire lock on the buffer
       
         //wait until the buffer is empty
         while (count == BUFFER_SIZE) {
             pthread_cond_wait(&empty, &mutex);
         }
+        //critical section
         //inserting value into buffer
         buffer[in] = value;
         in = (in + 1) % BUFFER_SIZE;
@@ -33,6 +35,7 @@ void *producer(void *arg) {
         //signal that buffer is full
         pthread_cond_signal(&full);
         
+        //exit section
         //release lock on buffer
         pthread_mutex_unlock(&mutex);
     }
@@ -42,13 +45,14 @@ void *producer(void *arg) {
 void *consumer(void *arg) {
     int value;
     for(int i = 0; i < 40;i++){
+        //entry section
         pthread_mutex_lock(&mutex); //acquire lock on buffer
       
         //wait until buffer is not empty
         while (count == 0) {
             pthread_cond_wait(&full, &mutex);
         }
-      
+        //critical section
         //read value from buffer
         value = buffer[out];
         out = (out + 1) % BUFFER_SIZE;
@@ -58,6 +62,7 @@ void *consumer(void *arg) {
         //signal that buffer is empty
         pthread_cond_signal(&empty);
         
+        //exit section
         //release lock on buffer
         pthread_mutex_unlock(&mutex);
         /*if (count == 0) {
