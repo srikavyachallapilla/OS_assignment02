@@ -4,7 +4,7 @@
 #include<unistd.h>
 
 #define BUFFER_SIZE 20
-#define NUM_ITEMS 30
+#define NUM_ITEMS 40
 
 int buffer[BUFFER_SIZE];
 int sum = 0;
