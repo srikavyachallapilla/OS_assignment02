@@ -17,7 +17,7 @@ pthread_cond_t empty = PTHREAD_COND_INITIALIZER; //conditional variable to check
 //producer method to produce items
 void *producer(void *arg) {
     int i, value;
-    for (i = 1; i <= 30; i++) {
+    for (i = 1; i <= 40; i++) {
         value = i;
         pthread_mutex_lock(&mutex); //acquire lock on the buffer
       
@@ -41,7 +41,7 @@ void *producer(void *arg) {
 
 void *consumer(void *arg) {
     int value;
-    for(int i = 0; i < 30;i++){
+    for(int i = 0; i < 40;i++){
         pthread_mutex_lock(&mutex); //acquire lock on buffer
       
         //wait until buffer is not empty
