@@ -10,9 +10,9 @@ int in = 0; // index to insert or write item into buffer
 int out = 0; // index to read item from the buffer. 
 int count = 0; //variable to count number of items in the buffer
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; // mutex for buffer access 
-pthread_cond_t full = PTHREAD_COND_INITIALIZER; //conditional variable to check buffer is not empty
-pthread_cond_t empty = PTHREAD_COND_INITIALIZER; //conditional variable to check buffer is empty
+pthread_mutex_t mutex; // = PTHREAD_MUTEX_INITIALIZER; // mutex for buffer access 
+pthread_cond_t full; // = PTHREAD_COND_INITIALIZER; //conditional variable to check buffer is not empty
+pthread_cond_t empty; // = PTHREAD_COND_INITIALIZER; //conditional variable to check buffer is empty
 
 //producer method to produce items
 void *producer(void *arg) {
@@ -73,19 +73,19 @@ void *consumer(void *arg) {
 }
 
 int main() {
-    pthread_t p1, p2, c1, c2; //declaring threads using pthread
+    pthread_t pro1, pro2, con1, con2; //declaring threads using pthread
     //creating producer threads
-    pthread_create(&p1, NULL, producer, NULL);
-    pthread_create(&p2, NULL, producer, NULL);
+    pthread_create(&pro1, NULL, producer, NULL);
+    pthread_create(&pro2, NULL, producer, NULL);
     //creating consumer threads
-    pthread_create(&c1, NULL, consumer, NULL);
-    pthread_create(&c2, NULL, consumer, NULL);
+    pthread_create(&con1, NULL, consumer, NULL);
+    pthread_create(&con2, NULL, consumer, NULL);
     //wait for producer threads to finish
-    pthread_join(p1, NULL);
-    pthread_join(p2, NULL);
+    pthread_join(pro1, NULL);
+    pthread_join(pro2, NULL);
     //wait for consumer threads to finish
-    pthread_join(c1, NULL);
-    pthread_join(c2, NULL);
+    pthread_join(con1, NULL);
+    pthread_join(con2, NULL);
     
     //finally priniting sum
     printf("SUM = %d\n", sum);
