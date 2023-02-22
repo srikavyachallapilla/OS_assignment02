@@ -10,14 +10,14 @@ int in = 0; // index to insert or write item into buffer
 int out = 0; // index to read item from the buffer. 
 int count = 0; //variable to count number of items in the buffer
 
-pthread_mutex_t mutex; // = PTHREAD_MUTEX_INITIALIZER; // mutex for buffer access 
-pthread_cond_t full; // = PTHREAD_COND_INITIALIZER; //conditional variable to check buffer is not empty
-pthread_cond_t empty; // = PTHREAD_COND_INITIALIZER; //conditional variable to check buffer is empty
+pthread_mutex_t mutex; // mutex for buffer access 
+pthread_cond_t full; //conditional variable to check buffer is not empty
+pthread_cond_t empty; //conditional variable to check buffer is empty
 
 //producer method to produce items
 void *producer(void *arg) {
     int i, value;
-    for (i = 1; i <= 40; i++) {
+    for (i = 1; i <= 30; i++) {
         value = i;
         //entry section
         pthread_mutex_lock(&mutex); //acquire lock on the buffer
@@ -44,7 +44,7 @@ void *producer(void *arg) {
 
 void *consumer(void *arg) {
     int value;
-    for(int i = 0; i < 40;i++){
+    for(int i = 0; i < 30;i++){
         //entry section
         pthread_mutex_lock(&mutex); //acquire lock on buffer
       
