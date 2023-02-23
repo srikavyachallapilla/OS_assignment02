@@ -58,7 +58,6 @@ void *consumer(void *arg) {
         out = (out + 1) % BUFFER_SIZE;
         count--;
         sum += value; //update sum
-        printf("%d ", sum);
         
         //signal that buffer is empty
         pthread_cond_signal(&empty);
