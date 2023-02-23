@@ -65,9 +65,6 @@ void *consumer(void *arg) {
         //exit section
         //release lock on buffer
         pthread_mutex_unlock(&mutex);
-        /*if (count == 0) {
-            break;
-        }*/
     }
     return NULL;
 }
