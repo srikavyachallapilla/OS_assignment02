@@ -84,7 +84,7 @@ int main() {
     pthread_join(con1, NULL);
     pthread_join(con2, NULL);
     
-    //finally priniting sum
+    //finally printing sum
     printf("SUM = %d\n", sum);
     return 0;
 }
